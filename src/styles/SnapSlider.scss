@@ -1,0 +1,188 @@
+// Define colors
+$primary-color: #39ff14;
+$secondary-color: #333;
+$highlight-color: #61dbfb;
+$background-color: #1e1e1e;
+$shadow-color: rgba(0, 0, 0, 0.6);
+$dark-bg: rgba(0, 0, 0, 0.6);
+$ripple-color: rgba(57, 255, 20, 0.3);
+
+// Flex layout to align slider and content container side by side
+.slider-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  height: 84vh;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+  padding-top: 5rem;
+  overflow: hidden;
+  user-select: none; // Prevents text selection
+}
+
+// Horizontal slider container with reduced width
+.slider-container {
+  position: relative;
+  width: 80%;
+  height: 5px;
+  background-color: $secondary-color;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  box-shadow: inset 2px 2px 10px $shadow-color;
+  margin-right: 20px;
+
+  .slider-button {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: $primary-color;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: left 0.3s ease;
+    z-index: 10;
+    box-shadow: 0 0 8px $primary-color, 2px 2px 5px $shadow-color;
+    user-select: none; // Prevents text selection during drag
+  }
+
+  .snap-point {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: #555;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &.active {
+      background-color: $primary-color;
+      box-shadow: 0 0 8px $primary-color;
+
+      &:before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: $ripple-color;
+        animation: ripple 1.5s infinite ease-out;
+        transform: translate(-50%, -50%);
+      }
+    }
+    &.disabled {
+      cursor: not-allowed;
+      background-color: darken(#555, 10%);
+    }
+  }
+
+  .snap-label {
+    position: absolute;
+    top: -57px;
+    font-size: 12px;
+    color: $primary-color;
+    background-color: #555;
+    padding: 5px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(103, 219, 255, 0.3), 0 0 20px $shadow-color;
+    transform: translateX(-50%); // Center-aligns the label
+    text-align: center;
+
+    &.active {
+      background-color: $primary-color;
+      color: #121212;
+      transform: translateX(-50%) scale(1.1);
+    }
+
+    &.disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+      background-color: darken(#555, 10%);
+    }
+  }
+}
+
+// Specific left positioning for snap-labels
+.snap-label:nth-of-type(1) { left: 8%; }
+.snap-label:nth-of-type(2) { left: 29%; }
+.snap-label:nth-of-type(3) { left: 46%; }
+.snap-label:nth-of-type(4) { left: 69%; }
+.snap-label:nth-of-type(5) { left: 88%; }
+
+// Content container with custom scrollbar
+.content-container {
+  flex: 1;
+  height: 100%;
+  padding: 20px;
+  box-shadow: 2px 2px 10px $shadow-color;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: $primary-color #222;
+  width: 100%;
+
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #222;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $primary-color;
+    border-radius: 20px;
+    border: 3px solid #222;
+  }
+
+  @keyframes neonRipple {
+    0% {
+      box-shadow: 0 0 10px $primary-color, 0 0 20px $primary-color, 0 0 30px $primary-color;
+    }
+    50% {
+      box-shadow: 0 0 20px $primary-color, 0 0 30px $primary-color, 0 0 40px $primary-color;
+    }
+    100% {
+      box-shadow: 0 0 10px $primary-color, 0 0 20px $primary-color, 0 0 30px $primary-color;
+    }
+  }
+  
+  .content-section {
+    padding: 20px;
+    margin-bottom: 10px;
+    color: #fff;
+    border-radius: 8px;
+    transition: box-shadow 0.3s ease;
+  
+    &.active-content {
+      border: 2px solid $primary-color;
+      animation: neonRipple 2s infinite ease-in-out;
+    }
+  }
+  
+}
+.snap-icon{
+  margin-right: 5px;
+}
+@keyframes ripple {
+  0% {
+    width: 20px;
+    height: 20px;
+    opacity: 0.8;
+  }
+  100% {
+    width: 40px;
+    height: 40px;
+    opacity: 0;
+  }
+}
+.snap-label.active {
+  background-color: $primary-color;
+  color: #121212;
+  transform: translateX(-50%) scale(1.1);
+}
+
