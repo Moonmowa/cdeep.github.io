@@ -8,7 +8,7 @@ import Projects from '../pages/Projects';
 import useDeviceType from './DeviceType';
 
 const CustomSnapSlider = () => {
-  const isMobile = useDeviceType()
+  const {isMobile, isIpadMini} = useDeviceType()
   const snapPositions = [0.10, 0.3, 0.5, 0.7, 0.9];
   const [activeSnap, setActiveSnap] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
@@ -101,22 +101,27 @@ const CustomSnapSlider = () => {
             key={index}
             className={`snap-point ${activeSnap === index ? 'active' : ''} ${index >= 3 ? 'disabled' : ''}`}
             style={{ left: `${position * 100}%` }}
-            onClick={() => index <= 3 ? handleSnapClick(index): null}
+            onClick={() => index < 3 ? handleSnapClick(index): null}
           />
         ))}
-        {snapPositions.map((position, index) => (
-          <div
-            key={`label-${index}`}
-            className={`snap-label ${isLabelActive === index ? 'active' : ''} ${index >= 3 ? 'disabled' : ''}`}
-            style={{ left: `${position * 100}%` }}
-            onClick={() => index <= 3 ? handleSnapClick(index): null}
-          >
-            <i className={`snap-icon ${iconClasses[index]}`}></i>
-            {!isMobile && <span>{contentHeaders[index]}</span>}
-          </div>
-        ))}
+        {snapPositions.map((position, index) => {
+          console.log(isIpadMini && activeSnap === index, contentHeaders[index],'header')
+          const adjustedPosition = position + (isMobile ? 0.035 : 0.005);  // Adjust based on flag
+          return (
+            <div
+              key={`label-${index}`}
+              className={`snap-label ${isLabelActive === index ? 'active' : ''} ${index >= 3 ? 'disabled' : ''}`}
+              style={{ left: `${adjustedPosition * 100}%` }}  // Apply the dynamic position
+              onClick={() => index < 3 ? handleSnapClick(index) : null}
+            >
+              <i className={`snap-icon ${iconClasses[index]}`}></i>
+              {(!isMobile && !isIpadMini) && <span>{contentHeaders[index]}</span>}
+              {(isIpadMini &&  activeSnap === index) && <span>{contentHeaders[index]}</span>}
+            </div>
+          );
+        })}
       </div>
-      {isMobile && <div className='content-header-sm'>
+      {isMobile || isIpadMini && <div className='content-header-sm'>
         <h2>{contentHeaders[activeSnap]}</h2>
       </div>}
       <div className="content-container" ref={contentRef}>
