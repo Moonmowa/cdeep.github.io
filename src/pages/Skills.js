@@ -2,7 +2,7 @@ import React from 'react';
 import useDeviceType from '../components/DeviceType';
 
 const Skills = () => {
-    const isMobile = useDeviceType();
+    const {isMobile} = useDeviceType();
     const skills = [
         { 
             name: 'React', 

@@ -6,7 +6,7 @@ $background-color: #1e1e1e;
 $shadow-color: rgba(0, 0, 0, 0.6);
 $dark-bg: rgba(0, 0, 0, 0.6);
 $ripple-color: rgba(57, 255, 20, 0.3);
-
+$white: white;
 // Flex layout to align slider and content container side by side
 .slider-wrapper {
   display: flex;
@@ -187,4 +187,42 @@ $ripple-color: rgba(57, 255, 20, 0.3);
   transform: translateX(-50%) scale(1.1);
   
 }
+.bw-theme{
+  .slider-container .snap-point.active:before{
+    background: rgba(240, 255, 237, 0.3) !important;
+  }
+  .snap-label {
+    color: $dark-bg;
+    // background-color: $white;
+   
+    &.active {
+      background-color: $white;
+    }
+  }
+  .slider-container .snap-point.active{
+    background-color: $white;
+    box-shadow: 0 0 8px $white;
+  }
+  .content-section {
+    padding: 20px;
+    margin-bottom: 10px;
+    color: #fff;
+    border-radius: 8px;
+    transition: box-shadow 0.3s ease;
+  
+    &.active-content {
+      border: 2px solid $white;
+      animation: unset;
+    }
+  }
+ 
+  .content-container{
+    scrollbar-color: white #222;
+  }
+}
 
+@media (min-width: 769px) and (max-width: 1130px) { 
+  .project{
+    width: auto;
+  }
+}

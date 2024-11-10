@@ -1,17 +1,29 @@
+$primary-color: #39ff14;
+$secondary-text-color: #4CAF50;
+$secondary-color: #333;
+$highlight-color: #61dbfb;
+$background-color: #1e1e1e;
+$shadow-color: rgba(0, 0, 0, 0.6);
+$dark-bg: rgba(0, 0, 0, 0.6);
+$white: #fff;
+
 header {
   background: linear-gradient(to right, #333333, #555555);
-  color: #fff;
+  color: $white;
   padding: 1.5rem;
   text-align: center;
   font-size: 1.2em;
-  border: 1px solid #39ff14;
+  border: 1px solid $primary-color;
+  
 }
-
+header h1 {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow: hidden;
@@ -19,13 +31,31 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
-.highlight {
-  color: #61dbfb;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
+.theme-icon {
+  font-size: 1rem;
+  cursor: pointer;
+  position: relative;
+  background-color: $white
+}
+.theme-toggle-button{
+  animation: unset;
+  background-color: $white;
+  border-color: $white
+}
+@keyframes ripple-matrix {
+    0% {
+      box-shadow: 0 0 20px $primary-color, 0 0 15px $primary-color, 0 0 20px $primary-color;
+    }
+    50% {
+      box-shadow: 0 0 10px $primary-color, 0 0 10px $primary-color, 0 0 20px $primary-color;
+    }
+    100% {
+      box-shadow: 0 0 10px $primary-color, 0 0 0px $primary-color, 0 0 0px $primary-color;
+    }
+  }
 
 /* Profile summary and roles starts */
 
@@ -33,19 +63,21 @@ code {
   display: flex;
   flex-direction: row;
 }
+
 section{
   margin-right: 1rem;
 }
+
 .profile-summary {
   width: 100%;
   padding: 1.5rem;
   background: linear-gradient(to right, #333333, #555555);
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 2px 5px $shadow-color;
   border-radius: 8px;
   margin: 0 1rem;
   text-align: center;
   font-size: 1.1em;
-  color: white;
+  color: $white;
   line-height: 1.5;
   height: auto;
   overflow: hidden;
@@ -57,14 +89,17 @@ section{
   background: linear-gradient(to right, #333333, #555555);
   border-radius: 8px;
 }
+
 #roles-responsibilities ul{
   list-style-type: none;
   padding: 0;
 }
+
 #roles-responsibilities ul li i {
   margin-right: 5px;
-  color: #61dbfb;
+  color: $highlight-color
 }
+
 #roles-responsibilities ul li{
   margin-bottom: 2rem;
 }
@@ -73,7 +108,10 @@ section{
   display: flex;
   flex-direction: row;
 }
-/* Profile summary and roels end */
+
+/* Profile summary and roles end */
+
+/* Skills Section */
 
 #skills {
   width: 50%;
@@ -137,8 +175,6 @@ section{
   background-color: #ff9800; /* Orange */
 }
 
-
-
 /* Projects code starts */
 .content-header {
   text-align: center;
@@ -155,7 +191,7 @@ section{
 
 .project {
   background: linear-gradient(to right, #333333, #555555);
-  border: 1px solid #4CAF50;
+  border: 1px solid $secondary-text-color;
   border-radius: 8px;
   margin: 1rem;
   padding: 1rem;
@@ -170,7 +206,7 @@ section{
 }
 
 .project h3 {
-  color: #4CAF50;
+  color: $secondary-text-color;
   font-size: 1.5em;
 }
 
@@ -187,7 +223,7 @@ section{
 
 .key-learnings h4 {
   margin: 0;
-  color: #4CAF50;
+  color: $secondary-text-color;
   font-weight: bold;
 }
 
@@ -202,7 +238,7 @@ section{
 
 /* Projects code ends */
 
-/* Contact from code */
+/* Contact form code */
 #contact {
   background: linear-gradient(to right, #333333, #555555);
   padding: 2rem;
@@ -223,29 +259,73 @@ form label {
 
 form input,
 form textarea {
-  padding: 0.5rem;
-  margin-bottom: 1rem;
-  border: 1px solid #555;
-  border-radius: 4px;
-  background-color: #1e1e1e;
-  color: #e0e0e0;
+  padding: 1rem;
+  margin: 0.5rem 0;
+  border-radius: 5px;
+  background: #444;
+  border: 1px solid #333;
+  color: #fff;
 }
 
 form button {
-  background: #4CAF50;
-  color: white;
-  padding: 0.5rem;
+  padding: 1rem;
+  background-color: #39ff14;
   border: none;
-  border-radius: 4px;
+  color: #fff;
+  font-size: 1.2em;
   cursor: pointer;
+  border-radius: 5px;
 }
 
 form button:hover {
-  background: #66bb6a;
+  background-color: #4caf50;
 }
 
+/* Contact form code ends */
+
+/* Theme based on bw and matrix */
+.bw-theme {
+  header {
+    background: unset;
+    background-color: $dark-bg;
+    color: $white;
+    border: 1px solid $dark-bg;
+  }
+  .primary-color {
+    color: $white;
+  }
+  .slider-container .snap-label.active {
+    background-color: $white;
+  }
+  .slider-container .snap-label {
+    color: $dark-bg;
+  }
+  .project {
+    h3,
+    .key-learnings h4 {
+      color: $white;
+    }
+    border: 1px solid $white;
+  }
+  .theme-icon {
+    font-size: 1rem;
+    cursor: pointer;
+    position: relative;
+    background-color: $dark-bg;
+    color: $white;
+  }
+  .theme-toggle-button{
+    animation: ripple-matrix 1.5s infinite ease-out;
+    background-color: $dark-bg;
+    border-color: $primary-color;
+  }
+}
 @media (max-width: 768px) { 
   .content-header-sm {
+    h2{
+      margin: unset !important;
+      margin-bottom: 5px !important;
+    }
     text-align: center;
     border-bottom: 2px solid #555;
     margin-bottom: unset;
@@ -283,5 +363,13 @@ form button:hover {
   body{
     overflow: scroll;
   }
-
+  .theme-toggle-button{ 
+    animation: unset;
+  }
+  .slider-wrapper {
+    gap: unset !important;
+  }
+  .slider-container{
+    height: unset !important;
+  }
 }

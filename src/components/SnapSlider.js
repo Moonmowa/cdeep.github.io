@@ -96,7 +96,7 @@ const CustomSnapSlider = () => {
   return (
     <div className="slider-wrapper">
       <div className="slider-container" ref={sliderRef} onMouseDown={handleDragStart}>
-        {snapPositions.map((position, index) => (
+        {!isMobile && snapPositions.map((position, index) => (
           <div
             key={index}
             className={`snap-point ${activeSnap === index ? 'active' : ''} ${index >= 3 ? 'disabled' : ''}`}
@@ -121,7 +121,7 @@ const CustomSnapSlider = () => {
           );
         })}
       </div>
-      {isMobile || isIpadMini && <div className='content-header-sm'>
+      {isMobile && <div className='content-header-sm'>
         <h2>{contentHeaders[activeSnap]}</h2>
       </div>}
       <div className="content-container" ref={contentRef}>
